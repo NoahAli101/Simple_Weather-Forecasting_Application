@@ -1,0 +1,43 @@
+1.Get OpenWeatherMap API Key:
+2.Sign up on the OpenWeatherMap website and obtain an API key.
+3.Install Required Libraries:
+
+pip install requests
+
+import requests
+
+# OpenWeatherMap API key
+API_KEY = 'your-api-key-here'
+
+# Base URL for API requests
+BASE_URL = 'http://api.openweathermap.org/data/2.5/weather'
+
+# User input for city name
+city_name = input("Enter city name: ")
+
+# Construct the complete API URL
+url = f'{BASE_URL}?q={city_name}&appid={API_KEY}&units=metric'
+
+# Send API request
+response = requests.get(url)
+data = response.json()
+
+if data['cod'] == 200:
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    humidity = data['main']['humidity']
+    wind_speed = data['wind']['speed']
+
+    print(f"Weather in {city_name}:")
+    print(f"Description: {weather}")
+    print(f"Temperature: {temperature}°C")
+    print(f"Humidity: {humidity}%")
+    print(f"Wind Speed: {wind_speed} m/s")
+else:
+    print("City not found.")
+
+
+#Replace 'your-api-key-here' with your actual OpenWeatherMap API key.
+Run the script, enter a city name, and it will fetch and display weather information for that city.
+
+
